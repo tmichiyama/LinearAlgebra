@@ -246,7 +246,7 @@ function stepsFor2x2(A: number[][], eigenvalues: number[], eigenvecs: number[][]
 }
 
 function stepsFor3x3(A: number[][], eigenvalues: number[], eigenvecs: number[][]): EigenStep[] {
-  const lams = [...new Set(eigenvalues)];
+  const lams = Array.from(new Set(eigenvalues));
   const steps: EigenStep[] = [
     {
       description: "特性方程式 det(A − λI) = 0 を展開します（3×3 は係数を直接求める）。",
