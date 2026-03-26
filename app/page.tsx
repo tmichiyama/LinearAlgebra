@@ -53,6 +53,10 @@ export default function Dashboard() {
           </Link>
         ))}
       </div>
+      <div className="border-t border-gray-200 pt-6 text-sm text-gray-400 space-y-1">
+        <p>Developed by <span className="text-gray-600 font-medium">Tomonari Michiyama</span> (Shunan University)</p>
+        <p>Built with <a href="https://claude.ai/code" className="underline underline-offset-2 hover:text-gray-600 transition-colors">Claude Code</a> — most of this app was written through AI-assisted development.</p>
+      </div>
     </div>
   );
 }
