@@ -210,6 +210,43 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+// ---------------------------------------------------------------- LaTeX sign helpers
+
+/** λ の係数項: `-3λ` or `+3λ` (先頭の `λ²` の後ろに続く) */
+function lambdaTerm(coeff: number): string {
+  if (coeff === 0) return "";
+  if (coeff > 0) return ` - ${coeff}\\lambda`;
+  return ` + ${Math.abs(coeff)}\\lambda`;
+}
+
+/** 定数項: `+ 5` or `- 5` */
+function constTerm(n: number): string {
+  if (n === 0) return "";
+  if (n > 0) return ` + ${n}`;
+  return ` - ${Math.abs(n)}`;
+}
+
+/** 因数 `(λ - lam)` の表示 */
+function lamFactor(lam: number): string {
+  if (lam === 0) return "\\lambda";
+  if (lam > 0) return `(\\lambda - ${lam})`;
+  return `(\\lambda + ${Math.abs(lam)})`;
+}
+
+/** `(A - lamI)` の表示 */
+function aMinusLamI(lam: number): string {
+  if (lam === 0) return "A";
+  if (lam > 0) return `(A - ${lam}I)`;
+  return `(A + ${Math.abs(lam)}I)`;
+}
+
+/** 行列要素 `a - λ` の表示 */
+function entryMinusLam(a: number): string {
+  if (a === 0) return "-\\lambda";
+  if (a > 0) return `${a} - \\lambda`;
+  return `${a} - \\lambda`;
+}
+
 // ---------------------------------------------------------------- step builders
 
 function stepsFor2x2(A: number[][], eigenvalues: number[], eigenvecs: number[][]): EigenStep[] {
@@ -221,19 +258,19 @@ function stepsFor2x2(A: number[][], eigenvalues: number[], eigenvecs: number[][]
   return [
     {
       description: "特性方程式 det(A − λI) = 0 を作ります。",
-      formula: `\\det(A - \\lambda I) = \\begin{vmatrix} ${a}-\\lambda & ${b} \\\\ ${c} & ${d}-\\lambda \\end{vmatrix} = 0`,
+      formula: `\\det(A - \\lambda I) = \\begin{vmatrix} ${entryMinusLam(a)} & ${b} \\\\ ${c} & ${entryMinusLam(d)} \\end{vmatrix} = 0`,
     },
     {
-      description: "展開して特性方程式を解きます。",
-      formula: `\\lambda^2 - ${tr}\\lambda + ${det} = (\\lambda - ${lam1})(\\lambda - ${lam2}) = 0`,
+      description: "行列式を展開して特性方程式を作ります。",
+      formula: `(${entryMinusLam(a)})(${entryMinusLam(d)}) - (${b})(${c}) = \\lambda^2${lambdaTerm(tr)}${constTerm(det)} = 0`,
     },
     {
       description: `固有値 λ = ${lam1} の固有ベクトルを求めます。`,
-      formula: `(A - ${lam1}I)\\mathbf{x} = \\mathbf{0} \\implies \\mathbf{x} \\propto ${toColVec(eigenvecs[0])}`,
+      formula: `${aMinusLamI(lam1)}\\mathbf{x} = \\mathbf{0} \\implies \\mathbf{x} \\propto ${toColVec(eigenvecs[0])}`,
     },
     {
       description: `固有値 λ = ${lam2} の固有ベクトルを求めます。`,
-      formula: `(A - ${lam2}I)\\mathbf{x} = \\mathbf{0} \\implies \\mathbf{x} \\propto ${toColVec(eigenvecs[1])}`,
+      formula: `${aMinusLamI(lam2)}\\mathbf{x} = \\mathbf{0} \\implies \\mathbf{x} \\propto ${toColVec(eigenvecs[1])}`,
     },
     {
       description: "正規化した固有ベクトルを求めます。",
@@ -259,7 +296,7 @@ function stepsFor3x3(A: number[][], eigenvalues: number[], eigenvecs: number[][]
     const idx = eigenvalues.indexOf(lam);
     steps.push({
       description: `固有値 λ = ${lam} の固有ベクトルを求めます。`,
-      formula: `(A - ${lam}I)\\mathbf{x} = \\mathbf{0} \\implies \\mathbf{x} \\propto ${toColVec(eigenvecs[idx])}`,
+      formula: `${aMinusLamI(lam)}\\mathbf{x} = \\mathbf{0} \\implies \\mathbf{x} \\propto ${toColVec(eigenvecs[idx])}`,
     });
   }
 

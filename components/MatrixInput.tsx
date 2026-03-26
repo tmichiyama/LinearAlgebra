@@ -11,9 +11,6 @@ interface MatrixInputProps {
   disabled?: boolean;
 }
 
-/**
- * Grid input for entering matrix values cell by cell.
- */
 export default function MatrixInput({
   rows,
   cols,
@@ -28,22 +25,20 @@ export default function MatrixInput({
       return "border-green-500 bg-green-50 text-green-800 focus:ring-green-400";
     if (s === "incorrect")
       return "border-red-400 bg-red-50 text-red-700 focus:ring-red-400";
-    return "border-indigo-300 bg-white text-gray-800 focus:ring-indigo-400";
+    return "border-gray-300 bg-white text-gray-900 focus:ring-indigo-400";
   };
 
   return (
     <div className="inline-block">
-      {/* Left bracket */}
       <div className="flex items-center gap-1">
         <div
           className="flex flex-col justify-between"
           style={{ height: `${rows * 52}px` }}
         >
-          <span className="text-3xl text-gray-500 leading-none font-thin">⌈</span>
-          <span className="text-3xl text-gray-500 leading-none font-thin">⌊</span>
+          <span className="text-3xl text-gray-400 leading-none font-thin">⌈</span>
+          <span className="text-3xl text-gray-400 leading-none font-thin">⌊</span>
         </div>
 
-        {/* Grid */}
         <div
           className="grid gap-2"
           style={{ gridTemplateColumns: `repeat(${cols}, 56px)` }}
@@ -60,9 +55,9 @@ export default function MatrixInput({
                   onChange(r, c, e.target.value)
                 }
                 className={[
-                  "w-14 h-12 text-center text-lg font-mono rounded-lg border-2 outline-none",
+                  "w-14 h-12 text-center text-lg font-mono rounded border-2 outline-none",
                   "transition-all duration-150 focus:ring-2 focus:ring-offset-1",
-                  "disabled:opacity-60 disabled:cursor-not-allowed",
+                  "disabled:opacity-50 disabled:cursor-not-allowed",
                   statusClass(r, c),
                 ].join(" ")}
                 placeholder="?"
@@ -71,13 +66,12 @@ export default function MatrixInput({
           )}
         </div>
 
-        {/* Right bracket */}
         <div
           className="flex flex-col justify-between"
           style={{ height: `${rows * 52}px` }}
         >
-          <span className="text-3xl text-gray-500 leading-none font-thin">⌉</span>
-          <span className="text-3xl text-gray-500 leading-none font-thin">⌋</span>
+          <span className="text-3xl text-gray-400 leading-none font-thin">⌉</span>
+          <span className="text-3xl text-gray-400 leading-none font-thin">⌋</span>
         </div>
       </div>
     </div>
