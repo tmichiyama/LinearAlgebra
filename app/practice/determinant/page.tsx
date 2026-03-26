@@ -153,7 +153,6 @@ export default function DeterminantPracticePage() {
             <input
               ref={inputRef}
               type="text"
-              inputMode="numeric"
               value={input}
               disabled={answerStatus === "correct" || showAnswer}
               onChange={(e) => {

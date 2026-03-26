@@ -36,7 +36,6 @@ function DetInput({ value, status, disabled, onChange }: DetInputProps) {
       <div className="w-full border-t-2 border-gray-400" />
       <input
         type="text"
-        inputMode="numeric"
         value={value}
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}

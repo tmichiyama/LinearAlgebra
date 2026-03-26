@@ -202,7 +202,6 @@ export default function EigenvaluePracticePage() {
                     <input
                       ref={i === 0 ? firstInputRef : undefined}
                       type="text"
-                      inputMode="numeric"
                       value={eigenInputs[i] ?? ""}
                       disabled={eigenStatus === "correct" || showAnswer}
                       onChange={(e) => {

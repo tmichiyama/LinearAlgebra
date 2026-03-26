@@ -48,7 +48,6 @@ export default function MatrixInput({
               <input
                 key={`${r}-${c}`}
                 type="text"
-                inputMode="numeric"
                 value={values[r]?.[c] ?? ""}
                 disabled={disabled}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
